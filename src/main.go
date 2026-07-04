@@ -6,11 +6,11 @@ import (
 )
 
 // http://localhost:4000/
-// Home handler function writes a byte slice containing 
+// Home handler function writes a byte slice containing
 // "Hello from Snippetbox" as the response body.
 func home (w http.ResponseWriter, r *http.Request) {
-// If the current request URL path doesn't exactly match "/" a
-// 404 response is returned using the http.NoFound() function.  
+    // If the current request URL path doesn't exactly match "/" a
+    // 404 response is returned using the http.NoFound() function.
     if r.URL.Path != "/" {
         http.NotFound(w, r)
         return
@@ -20,14 +20,14 @@ func home (w http.ResponseWriter, r *http.Request) {
 }
 
 // http://localhost:4000//snippet/view
-// Snippet viewing handler function writes a byte slice containing 
+// Snippet viewing handler function writes a byte slice containing
 // "View your snippets" as the response body.
 func view (w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("View your snippets"))
 }
 
 // http://localhost:4000//snippet/create
-// Snippet creation handler function writes a byte slice containing 
+// Snippet creation handler function writes a byte slice containing
 // "Create your snippets" as the response body.
 func create (w http.ResponseWriter, r *http.Request) {
     // r.Method checks if the request is using POST or not. If it's
@@ -42,7 +42,7 @@ func create (w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    // NewServeMux function initialises a new http request, then registers 
+    // NewServeMux function initialises a new http request, then registers
     // the home function as the handler for the "/" URL pattern.
     mux := http.NewServeMux()
     mux.HandleFunc ("/", home)
