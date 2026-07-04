@@ -24,7 +24,7 @@ func view (w http.ResponseWriter, r *http.Request) {
 func create (w http.ResponseWriter, r *http.Request) {
     if r.Method != http.MethodPost {
         w.Header().Set("Allow", http.MethodPost)
-        http.Error(w "Method Not Allowed", http.StatusMethodNotAllowed)
+        http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
         return
     }
 
