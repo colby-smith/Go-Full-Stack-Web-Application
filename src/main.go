@@ -5,12 +5,8 @@ import (
     "log"
 )
 
-// http://localhost:4000/
-// Home handler function writes a byte slice containing
-// "Hello from Snippetbox" as the response body.
+// home handler function
 func home (w http.ResponseWriter, r *http.Request) {
-    // If the current request URL path doesn't exactly match "/" a
-    // 404 response is returned using the http.NoFound() function.
     if r.URL.Path != "/" {
         http.NotFound(w, r)
         return
@@ -19,21 +15,15 @@ func home (w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("Hello from Snippetbox"))
 }
 
-// http://localhost:4000//snippet/view
-// Snippet viewing handler function writes a byte slice containing
-// "View your snippets" as the response body.
+// snippet/view handler function
 func view (w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("View your snippets"))
 }
 
-// http://localhost:4000//snippet/create
-// Snippet creation handler function writes a byte slice containing
-// "Create your snippets" as the response body.
+// snippet/view handler function
 func create (w http.ResponseWriter, r *http.Request) {
-    // r.Method checks if the request is using POST or not. If it's
-    // not the w.Write() method writes "Method Not Allowed" as a
-    // response body.
     if r.Method != "POST" {
+        w.Header().Set("Allow", "POST")
         w.WriteHeader(405)
         w.Write([]byte("Method Not Allowed"))
     }
@@ -41,18 +31,12 @@ func create (w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("Create a snippet"))
 }
 
+// main function
 func main() {
-    // NewServeMux function initialises a new http request, then registers
-    // the home function as the handler for the "/" URL pattern.
     mux := http.NewServeMux()
     mux.HandleFunc ("/", home)
     mux.HandleFunc ("/snippet/view", view)
     mux.HandleFunc ("/snippet/create", create)
-
-    // http.ListenAndServe() function starts a new web server. Two parameters are passed
-    // in: the TCP network address to listen on (":4000") and the servemux. If
-    // http.ListenAndServe() returns an error the log.Fatal() function will log
-    // the error message and exit.
     log.Println("Starting server on :4000")
     err := http.ListenAndServe(":4000", mux)
     log.Fatal(err)
