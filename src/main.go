@@ -22,9 +22,9 @@ func view (w http.ResponseWriter, r *http.Request) {
 
 // snippet/create handler function
 func create (w http.ResponseWriter, r *http.Request) {
-    if r.Method != "POST" {
-        w.Header().Set("Allow", "POST")
-        http.Error(w "Method Not Allowed", 405)
+    if r.Method != http.MethodPost {
+        w.Header().Set("Allow", http.MethodPost)
+        http.Error(w "Method Not Allowed", http.StatusMethodNotAllowed)
         return
     }
 
