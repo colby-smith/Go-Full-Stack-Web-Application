@@ -20,12 +20,13 @@ func view (w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("View your snippets"))
 }
 
-// snippet/view handler function
+// snippet/create handler function
 func create (w http.ResponseWriter, r *http.Request) {
     if r.Method != "POST" {
         w.Header().Set("Allow", "POST")
         w.WriteHeader(405)
         w.Write([]byte("Method Not Allowed"))
+        return
     }
 
     w.Write([]byte("Create a snippet"))
